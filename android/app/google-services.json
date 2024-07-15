@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "557743982531",
+    "project_id": "baby-name-finder-93f67",
+    "storage_bucket": "baby-name-finder-93f67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557743982531:android:4c9e75887cee36ca979f76",
+        "android_client_info": {
+          "package_name": "com.example.babynames"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUBllnixtN-RNzUhllwJcIE3fZr0wsCjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,85 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+if (flutterVersionCode == null) {
+    flutterVersionCode = "1"
+}
+
+def flutterVersionName = localProperties.getProperty("flutter.versionName")
+if (flutterVersionName == null) {
+    flutterVersionName = "1.0"
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services' // For Firebase services
+apply plugin: 'com.google.firebase.crashlytics' // Optional: For Firebase Crashlytics
+apply plugin: 'dev.flutter.flutter-gradle-plugin'
+
+android {
+    compileSdkVersion 34
+
+    defaultConfig {
+        applicationId "com.example.babynames"
+        minSdkVersion 23
+        targetSdkVersion 34
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            keyAlias 'mykey'
+            keyPassword 'zingtek123'
+            storeFile file('D://babynames/mykeystore.jks')
+            storePassword 'zingtek123'
+        }
+        debug {
+            // Define debug signing configuration if needed
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true // Enable if using ProGuard or R8 for release builds
+            shrinkResources true // Enable resource shrinking to remove unused resources
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            firebaseCrashlytics {
+                mappingFileUploadEnabled true // Enable uploading ProGuard/R8 mapping files to Firebase Crashlytics
+            }
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:33.0.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation 'com.android.support:multidex:1.0.3' // Required for multidex support
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
